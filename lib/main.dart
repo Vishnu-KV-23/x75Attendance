@@ -216,6 +216,15 @@ class MinPeriodCounter extends StatelessWidget {
               SizedBox(height: 20),
               Text('Required Periods: ${appState.result.toStringAsFixed(2)}'),
               SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text('Final Count: ${appState.roundedResult}', style: TextStyle(color: Colors.white, fontSize: 16)),
+              ),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   attendedController.clear();
