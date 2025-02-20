@@ -24,14 +24,27 @@ class MyApp extends StatelessWidget {
 
 class AttendanceState extends ChangeNotifier {
   double result = 0;
+  int roundedResult = 0;
+  bool showResults = false;
 
   void calculateDutyLeave(double attendedHours, double totalHours) {
     result = (0.75 * totalHours) - attendedHours;
+    roundedResult = result.ceil();
+    showResults = true;
     notifyListeners();
   }
 
   void calculateMinPeriods(double attendedHours, double totalHours) {
     result = ((0.75 * totalHours) - attendedHours) / 0.25;
+    roundedResult = result.ceil();
+    showResults = true;
+    notifyListeners();
+  }
+
+  void reset() {
+    result = 0;
+    roundedResult = 0;
+    showResults = false;
     notifyListeners();
   }
 }
@@ -50,8 +63,10 @@ class _HomePageState extends State<HomePage> {
     switch (selectedIndex) {
       case 0:
         page = DutyLeaveFinder();
+        break;
       case 1:
         page = MinPeriodCounter();
+        break;
       default:
         throw UnimplementedError('No widget for $selectedIndex');
     }
@@ -105,17 +120,23 @@ class DutyLeaveFinder extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Duty Leave Finder", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            Text("Calculate the minimum number of duty leaves required to get to 75% attendance.", style: TextStyle(fontSize: 14, color: Colors.grey)),
+            SizedBox(height: 20),
             TextField(
               controller: attendedController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Attended Hours'),
+              autofocus: true,
+              decoration: InputDecoration(labelText: 'Attended Hours', border: OutlineInputBorder()),
             ),
+            SizedBox(height: 10),
             TextField(
               controller: totalController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Total Hours'),
+              decoration: InputDecoration(labelText: 'Total Hours', border: OutlineInputBorder()),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 double attended = double.tryParse(attendedController.text) ?? 0;
@@ -124,8 +145,28 @@ class DutyLeaveFinder extends StatelessWidget {
               },
               child: Text('Submit'),
             ),
-            SizedBox(height: 10),
-            Text('Required Hours: ${appState.result.toStringAsFixed(2)}'),
+            if (appState.showResults) ...[
+              SizedBox(height: 20),
+              Text('Required Hours: ${appState.result.toStringAsFixed(2)}'),
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text('Final Count: ${appState.roundedResult}', style: TextStyle(color: Colors.white, fontSize: 16)),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  attendedController.clear();
+                  totalController.clear();
+                  appState.reset();
+                },
+                child: Text('Done'),
+              ),
+            ],
           ],
         ),
       ),
@@ -146,17 +187,23 @@ class MinPeriodCounter extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Minimum Hour Counter", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            Text("Calculate minimum additional hours required for 75% attendance.", style: TextStyle(fontSize: 14, color: Colors.grey)),
+            SizedBox(height: 20),
             TextField(
               controller: attendedController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Attended Hours'),
+              autofocus: true,
+              decoration: InputDecoration(labelText: 'Attended Hours', border: OutlineInputBorder()),
             ),
+            SizedBox(height: 10),
             TextField(
               controller: totalController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Total Hours'),
+              decoration: InputDecoration(labelText: 'Total Hours', border: OutlineInputBorder()),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 double attended = double.tryParse(attendedController.text) ?? 0;
@@ -165,8 +212,19 @@ class MinPeriodCounter extends StatelessWidget {
               },
               child: Text('Submit'),
             ),
-            SizedBox(height: 10),
-            Text('Required Periods: ${appState.result.toStringAsFixed(2)}'),
+            if (appState.showResults) ...[
+              SizedBox(height: 20),
+              Text('Required Periods: ${appState.result.toStringAsFixed(2)}'),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  attendedController.clear();
+                  totalController.clear();
+                  appState.reset();
+                },
+                child: Text('Done'),
+              ),
+            ],
           ],
         ),
       ),
