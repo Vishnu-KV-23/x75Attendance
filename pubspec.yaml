@@ -1,5 +1,5 @@
-name: namer_app
-description: A new Flutter project.
+name: x75Attendance
+description: An app to find the amount of duty leaves needed to get to 75 percent attendance OR the number of classes to attend to get 75 percent attendance.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 

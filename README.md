@@ -1,16 +1,20 @@
-# namer_app
+## 📌 x75Attendance
 
-A new Flutter project.
+### 📢 Features:
+- **DutyLeave Finder**  
+  - Calculates the required additional attendance hours needed to maintain 75% attendance.  
+  - Formula: `x = (0.75 * TotalHours) - AttendedHours`.  
+  - Displays both the exact value and the rounded-up value.  
 
-## Getting Started
+- **MinPeriod Counter**  
+  - Computes the minimum number of periods required to attend to reach 75% attendance.  
+  - Formula: `x = ((0.75 * TotalHours) - AttendedHours) / 0.25`.  
+  - Displays both the exact value and the rounded-up value.  
 
-This project is a starting point for a Flutter application.
+### 📲 How to Use:
+1. Select either **DutyLeave Finder** or **MinPeriod Counter** from the app.  
+2. Enter the **Attended Hours** and **Total Hours**.  
+3. Click **Submit** to get the required attendance details.  
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 📥 Download:
+- **[Latest APK Release](https://github.com/Vishnu-KV-23/x75Attendance/releases/download/Attendance/x75Attendance.apk)**  
