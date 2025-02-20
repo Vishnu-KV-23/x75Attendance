@@ -17,4 +17,4 @@
 3. Click **Submit** to get the required attendance details.  
 
 ### 📥 Download:
-- **[Latest APK Release](https://github.com/Vishnu-KV-23/x75Attendance/releases/download/Attendance/x75Attendance.apk)**  
+- **[Latest APK Release](https://github.com/Vishnu-KV-23/x75Attendance/releases/tag/Latest)**  
